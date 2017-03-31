@@ -1,3 +1,8 @@
 <?php
 
 $password = 'PUTYOURPASSWORD';
+$user = 'PUTYOURUSER';
+$host = 'localhost';
+$dbname = 'ecommerce';
+
+$db = new PDO('mysql:host='.$host.';dbname='.$dbname, $user, $password);
