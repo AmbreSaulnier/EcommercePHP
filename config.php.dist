@@ -6,3 +6,5 @@ $host = 'localhost';
 $dbname = 'ecommerce';
 
 $db = new PDO('mysql:host='.$host.';dbname='.$dbname, $user, $password);
+
+include 'functions.php';
