@@ -13,6 +13,7 @@ include 'header.php'; ?>
         <?php foreach(getProducts() as $product) {
             var_dump($product);
         } ?>
+        
     </div>
 
 <?php include 'footer.php'; ?>
