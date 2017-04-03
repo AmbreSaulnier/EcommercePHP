@@ -1,0 +1,12 @@
+{
+    "name": "webforce/ecommerce",
+    "authors": [
+        {
+            "name": "Matthieu Mota",
+            "email": "matthieumota@gmail.com"
+        }
+    ],
+    "require": {
+        "fzaninotto/faker": "^1.6"
+    }
+}

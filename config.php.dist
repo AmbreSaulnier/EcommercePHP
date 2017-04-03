@@ -7,4 +7,6 @@ $dbname = 'ecommerce';
 
 $db = new PDO('mysql:host='.$host.';dbname='.$dbname, $user, $password);
 
+// J'inclus le fichier autoload de composer
+include 'vendor/autoload.php';
 include 'functions.php';
