@@ -1,11 +1,15 @@
 <?php
 
-$password = 'PUTYOURPASSWORD';
-$user = 'PUTYOURUSER';
+session_start(); // Utilisation des sessions dans tous nos scripts
+
+$password = '';
+$user = 'root';
 $host = 'localhost';
 $dbname = 'ecommerce';
 
-$db = new PDO('mysql:host='.$host.';dbname='.$dbname, $user, $password);
+$db = new PDO('mysql:host='.$host.';dbname='.$dbname, $user, $password, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION // Active les erreurs SQL pour PDO
+]);
 
 // J'inclus le fichier autoload de composer
 include 'vendor/autoload.php';
