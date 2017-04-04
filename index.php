@@ -4,16 +4,29 @@ include 'header.php'; ?>
 
     <div class="container">
         <h1>J'ai fait la Home page !</h1>
-        <?php
-            $faker = Faker\Factory::create(); // equivaut à new Faker() ou new PDO()
-            for ($i = 0; $i < 10; $i++) {
-                echo $faker->address . '<br />';
-            }
-        ?>
-        <?php foreach(getProducts() as $product) {
+        <?php foreach(getProducts(10) as $product) {
             var_dump($product);
         } ?>
-        
+        <?php $max_page = getMaxPagesProducts(10); ?>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
 <?php include 'footer.php'; ?>

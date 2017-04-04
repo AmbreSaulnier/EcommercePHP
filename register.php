@@ -12,14 +12,17 @@ if (!empty($_POST)) {
     // Je crée un tableau d'erreur vide
     $errors = [];
 
+    // Je vérifie que le login ne soit pas vide
     if (empty($login)) {
         $errors['login'] = "Le login est vide.";
     }
 
+    // Je vérifie que l'email soit valide
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "L'email n'est pas valide.";
     }
 
+    // Je vérifie que le mot de passe ne soit pas trop court
     if (strlen($password) < 8) {
         $errors['password'] = "Le mot de passe est vide.";
     }

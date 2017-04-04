@@ -1,9 +1,18 @@
 <?php
 
-function getProducts() {
+function getProducts($nb_items = 10, $page = 1) {
     global $db;
-    $query = $db->query('SELECT * FROM product');
+    // On peut récupérer la page via l'URL
+    if (isset($_GET['page'])) {
+        $page = $_GET['page'];
+    }
+    $offset = ($page - 1) * $nb_items;
+    $query = $db->query('SELECT * FROM product LIMIT '.$offset.', '.$nb_items);
     return $query->fetchAll();
+}
+
+function getMaxPagesProducts() {
+    
 }
 
 function userExists($email, $login) {

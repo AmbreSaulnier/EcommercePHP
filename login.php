@@ -4,6 +4,7 @@ include 'header.php';
 
 if (1 == 1) {
     $_SESSION['user'] = 1;
+    unset($_SESSION['user']);
     setcookie('cookie', 1, time() + 3600);
 }
 
