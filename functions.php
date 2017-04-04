@@ -11,8 +11,10 @@ function getProducts($nb_items = 10, $page = 1) {
     return $query->fetchAll();
 }
 
-function getMaxPagesProducts() {
-    
+function getMaxPagesProducts($nb_items = 10) {
+    global $db;
+    $nb_products = $db->query('SELECT COUNT(*) FROM product')->fetchColumn();
+    return ceil($nb_products / $nb_items); // au lieu d'avoir 20.86 pages j'en ai 21
 }
 
 function userExists($email, $login) {

@@ -7,23 +7,35 @@ include 'header.php'; ?>
         <?php foreach(getProducts(10) as $product) {
             var_dump($product);
         } ?>
-        <?php $max_page = getMaxPagesProducts(10); ?>
+        <?php
+        $current_page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+        $max_page = getMaxPagesProducts(10); ?>
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <?php
+                // Affiche toutes les pages dans la liste de la pagination
+                /*for ($page = 1; $page <= $max_page; $page++) { ?>
+                    <li class="<?= ($page == $_GET['page']) ? 'active' : '' ?>"><a href="<?php echo $url ?>?page=<?php echo $page ?>"><?php echo $page; ?></a></li>
+                <?php }*/ ?>
+                <?php for ($page = $current_page - 5; $page < $current_page; $page++) {
+                    if ($page <= 0) { $page = 1; }
+                    if ($current_page == 1) { break; }
+                    ?>
+                    <li><a href="<?php echo $url ?>?page=<?php echo $page ?>"><?php echo $page; ?></a></li>
+                <?php } ?>
+                <li class="active"><a href="<?php echo $url ?>?page=<?php echo $current_page ?>"><?php echo $current_page; ?></a></li>
+                <?php for ($page = $current_page + 1; $page <= $current_page + 5; $page++) { ?>
+                    <li><a href="<?php echo $url ?>?page=<?php echo $page ?>"><?php echo $page; ?></a></li>
+                <?php } ?>
                 <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             </ul>
         </nav>
