@@ -28,6 +28,7 @@ function userExists($email, $login) {
 }
 
 function registerUser($login, $email, $password) {
+    global $db;
     $query = $db->prepare("INSERT INTO user (login, email, password, role, registered_at) VALUES (:login, :email, :password, 'customer', NOW())");
     $query->bindValue(':login', $login);
     $query->bindValue(':email', $email);
@@ -35,4 +36,29 @@ function registerUser($login, $email, $password) {
     if ($query->execute()) {
         return $db->lastInsertId();
     }
+}
+
+function checkUser($login, $password) {
+    global $db;
+    $query = $db->prepare('SELECT COUNT(*) as count, id, login, email, password, role, registered_at FROM user WHERE login = :login');
+    $query->bindValue(':login', $login, PDO::PARAM_STR);
+    $query->execute();
+    $user = $query->fetch(); // Je stocke le résultat de ma requête dans $user
+    if ($user['count']) {
+        // Vérification du mot de passe
+        if (password_verify($password, $user['password'])) { // Je compare le mot de passe en clair avec le mot de passe hashé
+            return $user;
+        } else {
+            return 'Le mot de passe n\'est pas correct';
+        }
+    } else {
+        return 'L\'utilisateur n\'existe pas';
+    }
+}
+
+function changeTokenLogin($user_id) {
+    global $db;
+    $token_login = sha1(md5(sha1($user_id) . sha1(time()) . md5('1a4g51rz74hz21rz4h') . md5(uniqid()))); // Génére un token du style 3a4f74a7f5a7f4v7g4ae5g41ae2gea87gv
+    $db->query('UPDATE user SET token_login = "'.$token_login.'" WHERE id = ' . $user_id);
+    return $token_login;
 }

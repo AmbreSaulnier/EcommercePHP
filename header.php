@@ -27,7 +27,13 @@
             <ul class="nav navbar-nav">
             <!-- En php, je détecte l'URL et en fonction de celle-ci, j'affiche la classe active sur le bon élément -->
 <li class="<?= (strpos($_SERVER['REQUEST_URI'], '.php') === false) ? 'active' : '' ?>"><a href="<?php echo $url; ?>">Liste des produits</a></li>
-<li class="<?= (strpos($_SERVER['REQUEST_URI'], 'register.php')) ? 'active' : '' ?>"><a href="<?php echo $url; ?>register.php">Inscription</a></li>
+<?php if (isset($_SESSION['user'])) { ?>
+    <li><?php echo $_SESSION['user']['login']; ?></li>
+<?php } else { ?>
+    <li class="<?= (strpos($_SERVER['REQUEST_URI'], 'register.php')) ? 'active' : '' ?>"><a href="<?php echo $url; ?>register.php">Inscription</a></li>
+    <li class="<?= (strpos($_SERVER['REQUEST_URI'], 'login.php')) ? 'active' : '' ?>"><a href="<?php echo $url; ?>login.php">Connexion</a></li>
+<?php } ?>
+
             </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

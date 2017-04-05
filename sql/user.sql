@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Client :  db
--- Généré le :  Ven 31 Mars 2017 à 14:46
--- Version du serveur :  5.6.35
--- Version de PHP :  7.0.16
+-- Client :  127.0.0.1
+-- Généré le :  Mer 05 Avril 2017 à 11:05
+-- Version du serveur :  10.1.16-MariaDB
+-- Version de PHP :  5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -25,6 +25,7 @@ CREATE TABLE `user` (
   `login` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `token_login` varchar(255) DEFAULT NULL,
   `role` varchar(255) NOT NULL,
   `registered_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -47,4 +48,4 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
