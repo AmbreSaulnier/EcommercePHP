@@ -62,3 +62,27 @@ function changeTokenLogin($user_id) {
     $db->query('UPDATE user SET token_login = "'.$token_login.'" WHERE id = ' . $user_id);
     return $token_login;
 }
+
+function checkUserByEmail($user_email) {
+    global $db;
+    $query = $db->prepare('SELECT id FROM user WHERE email = :email');
+    $query->bindValue(':email', $user_email, PDO::PARAM_STR);
+    $query->execute();
+    return $query->fetchColumn();
+}
+
+function isValidToken($token) {
+    global $db;
+    $query = $db->prepare('SELECT id FROM user WHERE token_forget = :token AND NOW() < date_forget');
+    $query->bindValue(':token', $token, PDO::PARAM_STR);
+    $query->execute();
+    return $query->fetchColumn();
+}
+
+function changeUserPassword($id, $password) {
+    global $db;
+    $query = $db->prepare('UPDATE user SET password = :password, token_forget = NULL, date_forget = NULL WHERE id = :id'); // On met à jour le mot de passe de l'utilisateur et on supprime le token
+    $query->bindValue('id', $id);
+    $query->bindValue('password', password_hash($password, PASSWORD_DEFAULT));
+    return $query->execute();
+}
